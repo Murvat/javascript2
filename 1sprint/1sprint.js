@@ -7,8 +7,6 @@ console.log('Murvat');
 console.log('2');
 console.log(2);
 
-
-
 // Task 3.
 // Выведите в консоль строку: 'Добро '+'пожаловать '+' на курс'
 

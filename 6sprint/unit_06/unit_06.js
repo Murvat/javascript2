@@ -232,18 +232,17 @@ document.querySelector('.b-9').onclick = t9;
 function t10() {
     let renderOut = document.querySelector('div.out-10');
     let out = '';
-    for (let i = 1; i <= 5; i++) {
+    for (let i = 0; i < 5; i++) {
         for (let k = 1; k <= 10; k++) {
-            let number = String((i - 1) * 10 + k).padStart(2, '0');
-            out += number;
-            if (k < 10) {
-                out += '_';
+            let number = (10 * i + k);
+            if (number < 10) {
+                number = '0' + number;
             }
+            out += number + '_';
         }
         out += '<br>';
     }
     renderOut.innerHTML = out;
-
 }
 
 document.querySelector('.b-10').onclick = t10;

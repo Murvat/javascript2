@@ -247,6 +247,7 @@ document.querySelector('.b-18').onclick = f18;
 function f19() {
     let p = document.querySelectorAll('.p-19');
     let out = ''
+    //ssss
     for (i = 0; i < p.length; i++) {
         out += p[i].getAttribute('data-b') + ' ';
     }

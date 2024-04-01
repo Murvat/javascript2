@@ -89,17 +89,25 @@ document.querySelector('.b-6').onclick = f6;
 // Вывод - по нажатию кнопки b-7
 // Вывод в out-7
 
+// Объявление массива d7 и инициализация его значениями.
 let d7 = ['china', 'india', 'brazil', 'japan', 'egypt'];
 
+// Определение функции f7.
 function f7() {
+    // 1)Проверка, что массив d7 не пустой.
     if (d7.length > 0) {
+        // 2)Объявление переменной lastElement без присвоения значения.
         let lastElement = '';
-        lastElement = d7[d7.length - 1]
+        // 3)Присвоение переменной lastElement значения последнего элемента массива d7.
+        lastElement = d7[d7.length - 1];
+        // 4)Уменьшение длины массива d7 на 1 (удаление последнего элемента).
         d7.length = d7.length - 1;
     }
+    //5) Вызов функции showArr с классом '.out-7' и массивом d7 в качестве аргументов.
     showArr('.out-7', d7);
 }
 
+// Привязка функции f7 к событию клика на элементе с классом '.b-7'.
 document.querySelector('.b-7').onclick = f7;
 
 // Task 8
@@ -108,15 +116,20 @@ document.querySelector('.b-7').onclick = f7;
 // Вывод - по нажатию кнопки b-8
 // Вывод в out-8
 
+// Объявление массива d8 и инициализация его значениями.
 let d8 = [2, '4', 12, 67, 'hello'];
 
 function f8() {
+    // 1)Получение значения из элемента с классом '.i-8' и сохранение в переменной inputValue.
     let inputValue = document.querySelector('.i-8').value;
 
+    //2) Цикл, итерирующийся по элементам массива d8 в обратном порядке.
     for (let i = d8.length; i > 0; i--) {
+        // 3)Сдвиг элементов массива вправо.
         d8[i] = d8[i - 1];
     }
-    d8[0] = inputValue
+    // 4)Присвоение первому элементу массива d8 значения из переменной inputValue.
+    d8[0] = inputValue;
     showArr('.out-8', d8);
 }
 
@@ -131,12 +144,15 @@ document.querySelector('.b-8').onclick = f8;
 let d9 = [100, 200, 300, 400, 700, 121];
 
 function f9() {
+    // 1)Проверка, что массив d9 не пустой.
     if (d9.length > 0) {
+        // 2)Цикл, итерирующийся по элементам массива d9.
         for (let i = 0; i < d9.length - 1; i++) {
+            // 3)Присвоение текущему элементу значения следующего элемента массива.
             d9[i] = d9[i + 1];
         }
+        //4) Уменьшение длины массива d9 на 1 (удаление последнего элемента).
         d9.length = d9.length - 1;
-
     } showArr('.out-9', d9);
 }
 
@@ -167,15 +183,20 @@ document.querySelector('.b-10').onclick = f10;
 let d11 = [2, 3, 4, 5, 6, 7];
 
 function f11() {
+    //1) Получение числового значения из элемента с классом '.i-11' и сохранение в переменной inputValue.
     let inputValue = +document.querySelector('input.i-11').value;
 
-    let out = ''
+    // 2)Инициализация переменной out.
+    let out = '';
+
+    // 3)Проверка, содержится ли inputValue в массиве d11.
     if (d11.indexOf(inputValue) == -1) {
+        // 4)Если inputValue не найдено в массиве, добавление '-1' к out.
         out += '-1';
     } else {
+        //5) Если inputValue найдено в массиве, добавление соответствующего значения из d11 к out.
         out += d11[d11.indexOf(inputValue)];
     }
-
     document.querySelector('.out-11').innerHTML = out;
 }
 
@@ -198,8 +219,7 @@ function f12() {
             res = i;
             break;
         }
-    }
-    document.querySelector('.out-12').innerHTML += res;
+    } document.querySelector('.out-12').innerHTML += res;
 }
 
 document.querySelector('.b-12').onclick = f12;
@@ -214,10 +234,16 @@ document.querySelector('.b-12').onclick = f12;
 let d13 = [6, 0, 22, 1, 4, 76];
 
 function f13() {
+    // 1)Создание пустого массива copy.
     let copy = [];
+
+    //2) Цикл, итерирующийся по элементам массива d13 в обратном порядке.
     for (i = d13.length - 1; i >= 0; i--) {
+        //3) Добавление текущего элемента массива d13 в массив copy.
         copy.push(d13[i]);
     }
+
+    // 4)Присвоение массиву d13 значений массива copy.
     d13 = copy;
     showArr('.out-13', d13);
 }
@@ -252,15 +278,18 @@ document.querySelector('.b-14').onclick = f14;
 let d15 = [0, 2, 5, -4, 6, 22, -9, -12, 8, 12, 13, 78];
 
 function f15() {
+    //1) Получение числового значения из элемента с классом '.i-15' и сохранение в переменной n.
     let n = +document.querySelector('.i-15').value;
+
+    //2) Проверка, содержится ли n в массиве d15.
     if (d15.indexOf(n) >= 0) {
+        // 3)Если n найдено в массиве, возврат true.
         return true;
     } else {
+        //4) Если n не найдено в массиве, добавление n в массив d15.
         d15.push(n);
     }
-    showArr('.out-15', d15);
 }
-
 document.querySelector('.b-15').onclick = f15;
 
 // Task 16
@@ -291,10 +320,11 @@ let d171 = ['a', 'b', 'c', 'd'];
 let d172 = [1, 2, 3, 4, 5];
 
 function f17() {
-
+    // 1)Цикл, добавляющий элементы массива d171 в конец массива d17.
     for (let i = 0; i < d171.length; i++) {
         d17.push(d171[i]);
     }
+    // 2)Цикл, добавляющий элементы массива d172 в конец массива d17.
     for (let i = 0; i < d172.length; i++) {
         d17.push(d172[i]);
     }
@@ -333,7 +363,9 @@ let maxString = '';
 
 function f19() {
     for (let i = 0; i < d19.length; i++) {
+        // 1)Проверка, является ли текущий элемент массива d19 длинней, чем значение переменной maxString.
         if (d19[i].length > maxString.length) {
+            //2) Если текущий элемент длиннее, присвоить его значение переменной maxString.
             maxString = d19[i];
         }
     }

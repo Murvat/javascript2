@@ -12,9 +12,8 @@ function showArr(domElem, arr) {
 let d1 = [33, 'best', 66, 'best'];
 
 function f1() {
-    /**
-     * ваш код здесь
-     */
+    let inputValue = document.querySelector('.i-1').value;
+    d1.push(inputValue)
     showArr('.out-1', d1);
 }
 
@@ -25,7 +24,7 @@ document.querySelector('.b-1').onclick = f1;
 // функция выполняется при нажатии кнопки b-2
 
 function f2() {
-
+    d1.pop();
     showArr('.out-2', d1);
 }
 
@@ -36,7 +35,7 @@ document.querySelector('.b-2').onclick = f2;
 // функция выполняется при нажатии кнопки b-3
 
 function f3() {
-
+    d1.shift();
     showArr('.out-3', d1);
 }
 
@@ -48,7 +47,8 @@ document.querySelector('.b-3').onclick = f3;
 
 
 function f4() {
-
+    let inputValue = document.querySelector('.i-4').value;
+    d1.push(inputValue);
     showArr('.out-4', d1);
 }
 
@@ -59,7 +59,8 @@ document.querySelector('.b-4').onclick = f4;
 // функция выполняется при нажатии кнопки b-5
 
 function f5() {
-
+    let inputValue = document.querySelector('.i-5').value;
+    d1.unshift(inputValue);
     showArr('.out-5', d1);
 }
 
@@ -74,6 +75,8 @@ document.querySelector('.b-5').onclick = f5;
 let d6 = ['test', 5, 12];
 
 function f6() {
+    let inputValue = document.querySelector('.i-6').value;
+    d6[d6.length] = inputValue;
 
     showArr('.out-6', d6);
 }
@@ -89,7 +92,11 @@ document.querySelector('.b-6').onclick = f6;
 let d7 = ['china', 'india', 'brazil', 'japan', 'egypt'];
 
 function f7() {
-
+    if (d7.length > 0) {
+        let lastElement = '';
+        lastElement = d7[d7.length - 1]
+        d7.length = d7.length - 1;
+    }
     showArr('.out-7', d7);
 }
 
@@ -104,7 +111,12 @@ document.querySelector('.b-7').onclick = f7;
 let d8 = [2, '4', 12, 67, 'hello'];
 
 function f8() {
+    let inputValue = document.querySelector('.i-8').value;
 
+    for (let i = d8.length; i > 0; i--) {
+        d8[i] = d8[i - 1];
+    }
+    d8[0] = inputValue
     showArr('.out-8', d8);
 }
 
@@ -119,8 +131,13 @@ document.querySelector('.b-8').onclick = f8;
 let d9 = [100, 200, 300, 400, 700, 121];
 
 function f9() {
+    if (d9.length > 0) {
+        for (let i = 0; i < d9.length - 1; i++) {
+            d9[i] = d9[i + 1];
+        }
+        d9.length = d9.length - 1;
 
-    showArr('.out-9', d9);
+    } showArr('.out-9', d9);
 }
 
 document.querySelector('.b-9').onclick = f9;
@@ -134,7 +151,7 @@ document.querySelector('.b-9').onclick = f9;
 let d10 = [3, 14, 15, 92, 6];
 
 function f10() {
-
+    d10.reverse();
     showArr('.out-10', d10);
 }
 
@@ -150,7 +167,16 @@ document.querySelector('.b-10').onclick = f10;
 let d11 = [2, 3, 4, 5, 6, 7];
 
 function f11() {
+    let inputValue = +document.querySelector('input.i-11').value;
 
+    let out = ''
+    if (d11.indexOf(inputValue) == -1) {
+        out += '-1';
+    } else {
+        out += d11[d11.indexOf(inputValue)];
+    }
+
+    document.querySelector('.out-11').innerHTML = out;
 }
 
 document.querySelector('.b-11').onclick = f11;
@@ -165,7 +191,15 @@ document.querySelector('.b-11').onclick = f11;
 let d12 = [6, 62, 60, 70, 1, 5];
 
 function f12() {
-
+    let res = -1; // 1. Создать переменную res равную -1
+    let n = +document.querySelector('.i-12').value; // 2. Получить переменную n - число из input
+    for (let i = 0; i < d12.length; i++) { // 3. Запустить цикл по массиву d12
+        if (n === d12[i]) { // 4. Если введенное число n равно текущему элементу массива, то res = i; и выйти из цикла
+            res = i;
+            break;
+        }
+    }
+    document.querySelector('.out-12').innerHTML += res;
 }
 
 document.querySelector('.b-12').onclick = f12;
@@ -180,7 +214,11 @@ document.querySelector('.b-12').onclick = f12;
 let d13 = [6, 0, 22, 1, 4, 76];
 
 function f13() {
-
+    let copy = [];
+    for (i = d13.length - 1; i >= 0; i--) {
+        copy.push(d13[i]);
+    }
+    d13 = copy;
     showArr('.out-13', d13);
 }
 
@@ -196,7 +234,10 @@ document.querySelector('.b-13').onclick = f13;
 let d14 = [];
 
 function f14() {
-
+    let n = +document.querySelector('.i-14').value; // 2. Получить переменную n - число из input
+    for (let i = 0; i < n; i++) {
+        d14.push(1);
+    }
     showArr('.out-14', d14);
 }
 
@@ -211,8 +252,12 @@ document.querySelector('.b-14').onclick = f14;
 let d15 = [0, 2, 5, -4, 6, 22, -9, -12, 8, 12, 13, 78];
 
 function f15() {
-
-
+    let n = +document.querySelector('.i-15').value;
+    if (d15.indexOf(n) >= 0) {
+        return true;
+    } else {
+        d15.push(n);
+    }
     showArr('.out-15', d15);
 }
 
@@ -229,7 +274,7 @@ let d161 = [5, 6, 7, 8, 9];
 let d162 = [23, 24, 56, 87];
 
 function f16() {
-
+    d16 = d16.concat(d161, d162);
     showArr('.out-16', d16);
 }
 
@@ -247,6 +292,12 @@ let d172 = [1, 2, 3, 4, 5];
 
 function f17() {
 
+    for (let i = 0; i < d171.length; i++) {
+        d17.push(d171[i]);
+    }
+    for (let i = 0; i < d172.length; i++) {
+        d17.push(d172[i]);
+    }
     showArr('.out-17', d17);
 }
 
@@ -262,6 +313,9 @@ document.querySelector('.b-17').onclick = f17;
 let d18 = ['b', 'c', '45', 'e', 'z', 'y'];
 
 function f18() {
+    let n = document.querySelector('.i-18').value;
+    let res = d18.includes(n);
+    document.querySelector('.out-18').innerHTML = res;
 
 }
 
@@ -278,7 +332,12 @@ let d19 = ['Your', 'payment', 'method', 'will', 'automatically', 'be', 'charged'
 let maxString = '';
 
 function f19() {
-
+    for (let i = 0; i < d19.length; i++) {
+        if (d19[i].length > maxString.length) {
+            maxString = d19[i];
+        }
+    }
+    document.querySelector('.out-19').innerHTML = maxString;
 }
 
 document.querySelector('.b-19').onclick = f19;
@@ -292,7 +351,8 @@ document.querySelector('.b-19').onclick = f19;
 let d20 = [4, 5, 6, 7, 8, 9, 10];
 
 function f20() {
-
+    let res = d20.join('');
+    document.querySelector('.out-20').innerHTML = res;
 }
 
 document.querySelector('.b-20').onclick = f20;

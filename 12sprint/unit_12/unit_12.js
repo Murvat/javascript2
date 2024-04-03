@@ -299,44 +299,21 @@ let a13 = [];
 
 function f13() {
     for (let i = 0; i < 8; i++) {
-        a13.push([]);
-        for (let k = 0; k < 8; k++) {
-            if ((i + k) % 2 === 0) {
-                a13[i][k] = 1;
+        a13.push([]);//8 рядов добавляем
+        let a = a13[i];
+        for (let k = 0; k < 8; k++) {//8 столбцов добавляем
+            if ((i + k) % 2 === 0) {//при каждой  итерации добавляем ячейку номер которой от 0до7
+                a[k] = 1//через каждый 1 добавляем 1 
             } else {
-                a13[i][k] = 0;
+                a[k] = 0;
             }
-            console.log(`a13[${i}][${k}] = ${a13[i][k]}`);
         }
     }
-    console.log(a13);
-    // for (let i = 0; i < 8; i++) {
-    //     a13.push([]);
-    //     for (let k = 0; k < 8; k++) {
-    //         if ((i + k) % 2 === 0) {
-    //             a13[i][k] = 1;
-    //         } else {
-    //             a13[i][k] = 0;
-    //         }
-    //     }
-    // }
-    // for (let i = 0; i <= 7; i++) {
-    //     a13.push([]);
-    //     for (let k = 0; k <= 7; k++) {
-    //         a13[i][k] = 0;
-    //     }
-
-    // }
-    // for (let i = 0; i < a13.length; i++) {
-    //     let a = a13[i];
-    //     for (let k = 1; k < a.length; k += 2) {
-    //         a[k] = 1;
-    //     }
-
-    // }
     console.log(a13)
-
 }
+
+
+
 
 document.querySelector('.b-13').onclick = f13;
 
@@ -353,7 +330,13 @@ let a14 = [
 ];
 
 function f14() {
+    let out = ''
+    for (let i = 0; i < a14.length; i++) {
+        let a = a14[i];
+        out += a.length + ' ';
 
+    }
+    document.querySelector('.out-14').innerHTML = out;
 }
 
 document.querySelector('.b-14').onclick = f14;
@@ -371,7 +354,15 @@ let a15 = [
 ];
 
 function f15() {
-
+    let out = '';
+    let a = a15[0].length;
+    for (let i = 0; i < a15.length; i++) {
+        if (a < a15[i].length) {
+            a = a15[i].length
+        }
+    }
+    out += a;
+    document.querySelector('.out-15').innerHTML = out;
 }
 
 document.querySelector('.b-15').onclick = f15;
@@ -400,13 +391,16 @@ console.groupEnd();
 //  Т.е вы руками просто пишите массив такой, чтобы условия выполнялись.
 
 let a17 = [
-
+    [0, 1, 6],
+    [0, 7],
+    [],
+    [0, 1, 8]
 ];
 
 console.group('Task 17 ================');
-// console.log(a17[3][2] == 8);
-// console.log(a17[1][1] == 7);
-// console.log(a17[0][2] == 6);
+console.log(a17[3][2] == 8);
+console.log(a17[1][1] == 7);
+console.log(a17[0][2] == 6);
 
 console.groupEnd();
 
@@ -415,13 +409,17 @@ console.groupEnd();
 //  Т.е вы руками просто пишите массив такой, чтобы условия выполнялись.
 
 let a18 = [
-
+    3,
+    [],
+    [0, 12],
+    [],
+    [8]
 ];
 
 console.group('Task 18 ================');
-// console.log(a18[0] == 3);
-// console.log(a18[4][0] == 8);
-// console.log(a18[2][1] == 12);
+console.log(a18[0] == 3);
+console.log(a18[4][0] == 8);
+console.log(a18[2][1] == 12);
 
 console.groupEnd();
 
@@ -430,13 +428,16 @@ console.groupEnd();
 //  Т.е вы руками просто пишите массив такой, чтобы условия выполнялись.
 
 let a19 = [
+    [[[], [3]],],
+    [[[], [], [8]]],
+    [[], [12]],
 
 ];
 
 console.group('Task 19 ================');
-// console.log(a19[0][0][1] == 3);
-// console.log(a19[1][0][2] == 8);
-// console.log(a19[2][1][0] == 12);
+console.log(a19[0][0][1] == 3);
+console.log(a19[1][0][2] == 8);
+console.log(a19[2][1][0] == 12);
 
 console.groupEnd();
 
@@ -445,12 +446,15 @@ console.groupEnd();
 //  Т.е вы руками просто пишите массив такой, чтобы условия выполнялись.
 
 let a20 = [
-
+    [],
+    [[], [[], [9]]],
+    [[], [], [18]],
+    [12]
 ];
 
 console.group('Task 20 ================');
-// console.log(a20[1][1][1] == 9);
-// console.log(a20[2][2] == 18);
-// console.log(a20[3]== 12);
+console.log(a20[1][1][1] == 9);
+console.log(a20[2][2] == 18);
+console.log(a20[3] == 12);
 
 console.groupEnd();

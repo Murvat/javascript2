@@ -486,7 +486,7 @@ function f20() {
         for (let i = 0; i < vetkiStancij.length; i++) {
             let stancja = vetkiStancij[i];//ловим станцию
             if (stancja[1] == 2) {
-                out += stancja[0] + ' '
+                out += stancja[0] + ' '//vivodim
             }
         }
 

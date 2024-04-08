@@ -35,7 +35,8 @@ document.querySelector('.b-1').onclick = () => {
 let a2 = [2, 3, 4, 5, 10, 11, 12];
 
 function t2() {
-
+    a2_res = a2.map(item => item ** 2)
+    return a2_res;
 }
 
 document.querySelector('.b-2').onclick = () => {
@@ -50,7 +51,8 @@ document.querySelector('.b-2').onclick = () => {
 let a3 = [4, "3", 6, 7, "12", 34, "56", 78, 90, 11];
 
 function t3() {
-
+    a3_res = a3.map(item => +item);
+    return a3_res;
 }
 
 document.querySelector('.b-3').onclick = () => {
@@ -64,8 +66,14 @@ document.querySelector('.b-3').onclick = () => {
 let a4 = [4, "3", 6, 7, "12", 34, "56", 78, 90, 11];
 
 function t4() {
-
+    a4_res = a4.filter((item) => {
+        if (typeof (item) == 'number') {
+            return true
+        }
+    })
+    return a4_res;
 }
+
 
 document.querySelector('.b-4').onclick = () => {
     console.log(t4());
@@ -79,7 +87,10 @@ document.querySelector('.b-4').onclick = () => {
 let a5 = [3, 14, 15, 92, '6'];
 
 function t5() {
-
+    a5_res = a5.filter((item) => {
+        return typeof (item) == 'number' && item % 2 === 0;
+    });
+    return a5_res;
 }
 
 document.querySelector('.b-5').onclick = () => {
@@ -94,6 +105,14 @@ document.querySelector('.b-5').onclick = () => {
 let a6 = [3, 14, 15, 92, "6", "5", "hello", 32];
 
 function t6() {
+    a6_res = a6.filter((item) => {
+        if (typeof (item) == 'number') {
+            if (item > 14) {
+                return true;
+            }
+        }
+    });
+    return a6_res;
 
 }
 
@@ -106,9 +125,11 @@ document.querySelector('.b-6').onclick = () => {
 /*  Дан массив a7 = ['Alto`s Adventure', 'Angry Birds 2', 'Anno 2205', 'Assassin`s Creed Chronicles']. C помощью map переберите массив a7 и создайте  a7_res, который содержит элементы массива a7 приведенные к нижнему регистру. Действия должны запускаться при вызове функции t7. Функция должна возвращать a7_res. */
 
 let a7 = ['Alto`s Adventure', 'Angry Birds 2', 'Anno 2205', 'Assassin`s Creed Chronicles'];
-
 function t7() {
-
+    a7_res = a7.map(item => {
+        return item.toLowerCase();
+    })
+    return a7_res
 }
 
 document.querySelector('.b-7').onclick = () => {
@@ -121,7 +142,14 @@ document.querySelector('.b-7').onclick = () => {
 let a8 = [3, 14, 15, 92, 7, 32, 59];
 
 function t8() {
-
+    a8_res = a8
+        .map((item, index) => { if (item % 2 === 0) { return index } })
+        .filter((item) => {
+            if (typeof (item) != 'undefined') {
+                return true;
+            }
+        })
+    return a8_res;
 }
 
 document.querySelector('.b-8').onclick = () => {
@@ -136,7 +164,9 @@ document.querySelector('.b-8').onclick = () => {
 let a9 = ['Quantum Break', 'Gears of War 4', 'Mass Effect: Andromeda', 'Far Cry Primal'];
 
 function t9() {
-
+    a9.forEach((item, index) =>
+        a9[index] = item.toLowerCase())
+    return a9;
 }
 
 document.querySelector('.b-9').onclick = () => {
@@ -151,8 +181,13 @@ document.querySelector('.b-9').onclick = () => {
 let a10 = [2, 13, 14, -7, 9, 5, 0, -2, 14];
 
 function t10() {
-
-
+    a10.forEach((item, index) => {
+        if (item < 0) {
+            item = 0;
+            a10[index] = item;
+        }
+    })
+    return a10;
 }
 
 document.querySelector('.b-10').onclick = () => {
@@ -165,8 +200,9 @@ document.querySelector('.b-10').onclick = () => {
 let a11 = [2, 13, 14, -7, 9, 5, 0, -2, 14];
 
 function t11() {
-
-
+    a11_res = a11
+        .filter((item, index) => { if (index % 2 === 0) { return true } })
+    return a11_res
 }
 
 document.querySelector('.b-11').onclick = () => {
@@ -180,9 +216,15 @@ let a12 = [2, 13, 14, -7, 9, 5, 0, -2, 14];
 // a12 = 8; // на этой переменной можно проверить работает или нет ваша функция.
 
 function t12() {
-
-
+    if (Array.isArray(a12)) {
+        return true;
+    } else {
+        return false;
+    }
 }
+
+
+
 
 document.querySelector('.b-12').onclick = () => {
     console.log(t12());
@@ -196,7 +238,11 @@ let a13_num = 9;
 
 
 function t13() {
-
+    if (a13.includes(a13_num)) {
+        return true;
+    } else {
+        return false;
+    }
 
 }
 
@@ -212,8 +258,12 @@ let a14_sym = 'e';
 
 
 function t14() {
-
-
+    let newAr = a14.map((item) => item.toLowerCase());
+    if (newAr.includes(a14_sym)) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 document.querySelector('.b-14').onclick = () => {
@@ -257,7 +307,12 @@ let a15 = [
 
 
 function t15() {
-
+    a15_res = a15.filter((item) => {
+        if (item.name.length >= 6 && item.pnum !== '') {
+            return true;
+        }
+    })
+    return a15_res;
 
 }
 

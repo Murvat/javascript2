@@ -326,8 +326,32 @@ document.querySelector('.b-12').onclick = f12;
 // не забывайте для авторизации отправлять apikey с указанным ключом.
 
 function f13() {
+    let num = document.querySelector('.i-13').value;
+    let checkbox1 = document.querySelector('.ch-131');
+    let checkbox2 = document.querySelector('.ch-132');
+    xhr.open('POST', URL + '/api/25/random/generate-password');
+    xhr.setRequestHeader('apikey', APIKEY);
+    let data = new FormData();
+    data.append('length', num);
+    if (checkbox1.checked === true) {
+        data.append('symbols', 1)
+    } else {
+        data.append('symbols', 0)
+    }
+    if (checkbox2.checked === true) {
+        data.append('uppercase', 1)
+    } else {
+        data.append('uppercase', 0)
+    }
 
+    xhr.onload = function () {
+        let data = JSON.parse(xhr.response);
+        document.querySelector('.out-13').innerHTML = data.password;
+        console.log(data)
+    };
+    xhr.send(data)
 }
+
 
 document.querySelector('.b-13').onclick = f13;
 
@@ -341,6 +365,17 @@ document.querySelector('.b-13').onclick = f13;
 // выведите в .out-14 описание description расы (вывод через innerHTML)
 
 function f14() {
+    let human = document.querySelector('.s-14').value;
+    console.log(human)
+    xhr.open('GET', URL + `/api/25/sr/read/human/?${human}`);
+    xhr.setRequestHeader('apikey', APIKEY);
+    xhr.onload = function () {
+        let data = JSON.parse(xhr.response);
+        console.log(data);
+        document.querySelector('.out-14').innerHTML = data.result.description;
+    }
+    xhr.send();
+
 
 }
 
@@ -358,7 +393,21 @@ document.querySelector('.b-14').onclick = f14;
 // выведите изображения рас в .out-15
 
 function f15() {
+    let out = document.querySelector('.out-15').innerHTML;
+    out = '';
+    xhr.open('POST', URL + '/api/25/sr/read')
+    xhr.setRequestHeader('apikey', APIKEY);
+    xhr.onload = function () {
+        let data = JSON.parse(xhr.response);
+        console.log(data)
+        for (let key in data.result) {
+            let img = document.createElement('img');
+            img.setAttribute('src', URL + data.result[key].image);
+            document.querySelector('.out-15').append(img);
 
+        }
+    }
+    xhr.send();
 }
 
 
@@ -373,6 +422,16 @@ document.querySelector('.b-15').onclick = f15;
 // выведите в .out-16 названия (title) миров через пробел. 
 
 function f16() {
+    xhr.open('GET', URL + '/api/25/gow/world');
+    xhr.setRequestHeader('apikey', APIKEY);
+    xhr.onload = function () {
+        let data = JSON.parse(xhr.response);
+        console.log(data);
+        for (let key in data.worlds) {
+            document.querySelector('.out-16').innerHTML += data.worlds[key].title + ' ';
+        }
+    }
+    xhr.send();
 
 }
 
@@ -389,6 +448,17 @@ document.querySelector('.b-16').onclick = f16;
 // выведите в .out-17 описание мира. 
 
 function f17() {
+    let worldName = document.querySelector('.s-17').value;
+
+    xhr.open('GET', URL + `/api/25/gow/world/${worldName}`);
+
+    xhr.setRequestHeader('apikey', APIKEY);
+    xhr.onload = function () {
+        let data = JSON.parse(xhr.response);
+        console.log(data);
+        document.querySelector('.out-17').innerHTML += data.world.description
+    }
+    xhr.send();
 
 }
 
@@ -405,6 +475,24 @@ document.querySelector('.b-17').onclick = f17;
 // выполните очистку .out-18 в начале функции
 
 function f18() {
+    document.querySelector('.out-18').innerHTML = ''
+    xhr.open('POST', URL + `/api/25/gow/rune`);
+
+    xhr.setRequestHeader('apikey', APIKEY);
+    xhr.onload = function () {
+        let data = JSON.parse(xhr.response);
+        console.log(data.rune);
+        for (let key in data.rune) {
+            console.log(data.rune[key])
+            let img = document.createElement('img')
+            img.setAttribute('src', URL + data.rune[key])
+            document.querySelector('.out-18').append(img);
+            console.log(img)
+
+        }
+    }
+    xhr.send();
+
 
 }
 

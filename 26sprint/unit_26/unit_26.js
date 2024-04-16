@@ -9,7 +9,20 @@
 // не забывайте для авторизации отправлять apikey с указанным ключом.
 
 async function f1() {
-   
+    const requestHeaders = new Headers();
+    requestHeaders.append('apikey', APIKEY);
+    const res = await fetch(URL + '/api/26/employee/read', {//ответ запроса сохранаем в переменной
+        method: 'GET',
+        headers: requestHeaders,
+    })
+    // console.log(res);
+    const result = await res.json();
+    // console.log(result.result)
+    let out = ''
+    for (let item of result.result) {
+        out += item.age + ' '
+    }
+    document.querySelector('.out-1').innerHTML = out;
 }
 
 document.querySelector('.b-1').addEventListener('click', f1);
@@ -25,8 +38,18 @@ document.querySelector('.b-1').addEventListener('click', f1);
 
 
 
-async function f2(){
-   
+async function f2() {
+    let inputId = document.querySelector('.i-2').value;
+    let requestHeaders = new Headers();
+    requestHeaders.append('apikey', APIKEY);
+    let fetchData = await fetch(URL + `/api/26/employee/read?id=${inputId}`, {
+        method: 'GET',
+        headers: requestHeaders
+    })
+    console.log(inputId)
+    console.log(fetchData);
+    let fetchResult = await fetchData.json();
+    document.querySelector('.out-2').innerHTML = fetchResult.result.email
 }
 
 document.querySelector('.b-2').onclick = f2;
@@ -40,8 +63,18 @@ document.querySelector('.b-2').onclick = f2;
 
 // Результат - объект с описанием сотрудника. Выведите в out-3 name полученного сотрудника.
 
-async function f3(){
-    
+async function f3() {
+    let inputId = document.querySelector('.i-3').value;
+    let requestHeaders = new Headers();
+    requestHeaders.append('apikey', APIKEY);
+
+    let fetchRequest = await fetch(URL + `/api/26/employee/read/${inputId}`, {
+        method: 'POST',
+        headers: requestHeaders
+    });
+    let fetchResult = await fetchRequest.json();
+    document.querySelector('.out-3').innerHTML = fetchResult.result.name
+
 }
 
 document.querySelector('.b-3').onclick = f3;
@@ -55,8 +88,20 @@ document.querySelector('.b-3').onclick = f3;
 // Результат - объект с описанием рас игры КР. Выведите в out-4 название рас (title) через пробел.
 
 
-async function f4(){
-   
+async function f4() {
+    let requestHeaders = new Headers();
+    requestHeaders.append('apikey', APIKEY);
+
+    let fetchRequest = await fetch(URL + `/api/26/sr/read`, {
+        method: 'POST',
+        headers: requestHeaders
+    });
+    let fetchResult = await fetchRequest.json();
+    let out = '';
+    for (let item of fetchResult.result) {
+        out += item.title + ' '
+    }
+    document.querySelector('.out-4').innerHTML = out;
 }
 
 document.querySelector('.b-4').onclick = f4;
@@ -70,8 +115,20 @@ document.querySelector('.b-4').onclick = f4;
 // Результат - объект с описанием указанной расы. Выведите в out-5 описание расы (description). Вывод осуществляйте через innerHTML.
 
 
-async function f5(){
-   
+async function f5() {
+    let requestHeaders = new Headers();
+    requestHeaders.append('apikey', APIKEY);
+    let selRace = document.querySelector('.s-5').value;
+    console.log(selRace)
+    let fetchRequest = await fetch(URL + `/api/26/sr/read?race=${selRace}`, {
+        method: 'GET',
+        headers: requestHeaders
+    });
+    let fetchResult = await fetchRequest.json();
+    console.log()
+    document.querySelector('.out-5').innerHTML = fetchResult.result.description;
+
+
 }
 
 document.querySelector('.b-5').onclick = f5;
@@ -84,8 +141,16 @@ document.querySelector('.b-5').onclick = f5;
 // поскольку такого адреса в API не предусмотрено, то сервер должен вернуть ошибку 404
 // выведите статус ответа сервера в .out-6-status
 
-async function f6(){
-   
+async function f6() {
+    let requestHeaders = new Headers();
+    requestHeaders.append('apikey', APIKEY);
+    let fetchRequest = await fetch(URL + `/api/26/run`, {
+        method: 'GET',
+        headers: requestHeaders
+    });
+    // let fetchResult = await fetchRequest.json();
+    document.querySelector('.out-6-status').innerHTML = fetchRequest.status;
+
 }
 
 document.querySelector('.b-6').onclick = f6;
@@ -100,8 +165,23 @@ document.querySelector('.b-6').onclick = f6;
 // В начале функции делайте очистку .out-7.
 
 
-async function f7(){
-    
+async function f7() {
+    document.querySelector('.out-7').innerHTML = ''
+    let requestHeaders = new Headers();
+    requestHeaders.append('apikey', APIKEY);
+    let selRace = document.querySelector('.s-7').value;
+    console.log(selRace)
+    let fetchRequest = await fetch(URL + `/api/26/sr/read/${selRace}`, {
+        method: 'POST',
+        headers: requestHeaders
+    });
+    let fetchResult = await fetchRequest.json();
+    // console.log(fetchResult.result.image)
+    let img = document.createElement('img')
+    img.setAttribute('src', URL + fetchResult.result.image);
+    console.log(img)
+    document.querySelector('.out-7').append(img);
+
 }
 
 document.querySelector('.b-7').onclick = f7;
@@ -113,8 +193,16 @@ document.querySelector('.b-7').onclick = f7;
 // если запрос отправлен верно, то будет получен объект со случайным числом
 // выведите в .out-8 данное число.
 
-async function f8(){
-    
+async function f8() {
+    let requestHeaders = new Headers();
+    requestHeaders.append('apikey', APIKEY)
+    let fetchRequest = await fetch(URL + '/api/26/random/random-number', {
+        method: 'GET',
+        headers: requestHeaders
+    });
+    let fetchResult = await fetchRequest.json();
+    console.log(fetchResult)
+    document.querySelector('.out-8').innerHTML = fetchResult['random-number']
 }
 
 document.querySelector('.b-8').onclick = f8;
@@ -131,8 +219,19 @@ document.querySelector('.b-8').onclick = f8;
 let min = 400;
 let max = 500;
 
-async function f9(){
-   
+async function f9() {
+    let requestHeaders = new Headers();
+    requestHeaders.append('apikey', APIKEY)
+
+    let fetchRequest = await fetch(URL + `/api/26/random/random-number?min=${min}&max=${max}`, {
+        method: 'GET',
+        headers: requestHeaders
+    });
+
+    let fetchResult = await fetchRequest.json();
+    console.log(fetchResult)
+    document.querySelector('.out-9').innerHTML = fetchResult['random-number']
+
 }
 
 document.querySelector('.b-9').onclick = f9;
@@ -146,8 +245,21 @@ document.querySelector('.b-9').onclick = f9;
 // если запрос отправлен верно, то будет получен объект со случайным число от min до max.
 // выведите число в .out-10
 
-async function f10(){
-    
+async function f10() {
+    let requestHeaders = new Headers();
+    requestHeaders.append('apikey', APIKEY)
+
+    let queryForm = new FormData();
+    queryForm.append('min', min)
+    queryForm.append('max', max)
+    let fetchRequest = await fetch(URL + `/api/26/random/random-number`, {
+        method: 'GET',
+        headers: requestHeaders
+    });
+
+    let fetchResult = await fetchRequest.json();
+    console.log(fetchResult)
+    document.querySelector('.out-10').innerHTML = fetchResult['random-number']
 }
 
 document.querySelector('.b-10').onclick = f10;
@@ -161,8 +273,8 @@ document.querySelector('.b-10').onclick = f10;
 // Если запрос сделан правильно, то сервер возвратит объект с строкой случайных символов длиной 16.
 // Выведите строку в .out-11
 
-async function f11(){
-    
+async function f11() {
+
 }
 
 document.querySelector('.b-11').onclick = f11;
@@ -178,8 +290,8 @@ document.querySelector('.b-11').onclick = f11;
 
 
 
-async function f12(){
-   
+async function f12() {
+
 }
 
 document.querySelector('.b-12').onclick = f12;
@@ -197,7 +309,7 @@ document.querySelector('.b-12').onclick = f12;
 
 // не забывайте для авторизации отправлять apikey с указанным ключом.
 
-async function f13(){
+async function f13() {
 
 }
 
@@ -211,8 +323,8 @@ document.querySelector('.b-13').onclick = f13;
 // если все сделано верно, то получите объект с описанием миров игры GoW
 // выведите в .out-14 title миров через пробел. 
 
-async function f14(){
-   
+async function f14() {
+
 }
 
 document.querySelector('.b-14').onclick = f14;
@@ -225,8 +337,8 @@ document.querySelector('.b-14').onclick = f14;
 // где niflheim - название мира полученное из .s-15
 // выведите описание мира (description) в out-15
 
-async function f15(){
-   
+async function f15() {
+
 }
 
 
@@ -240,8 +352,8 @@ document.querySelector('.b-15').onclick = f15;
 // если все сделано верно, то получите объект с описанием мира где правитель Сурт игры GoW. 
 // выведите в .out-16 руну данного мира. Как изображение (createElement). Очищайте out-16 в начале функции.
 
-async function f16(){
-    
+async function f16() {
+
 }
 
 
@@ -255,8 +367,8 @@ document.querySelector('.b-16').onclick = f16;
 // если все сделано верно, то получите объект с текущим временем сервера.
 // выведите в .out-17 время в формате час:минуты
 
-async function f17(){
-   
+async function f17() {
+
 }
 
 
@@ -271,7 +383,7 @@ document.querySelector('.b-17').onclick = f17;
 // выведите в .out-18 руны как изображения, а в качестве атрибута alt установите название мира. 
 // выполните очистку .out-18 в начале функции
 
-async function f18(){
+async function f18() {
 
 }
 

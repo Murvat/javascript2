@@ -7,9 +7,9 @@
 // Ответ сервера (строку случайных символов) - выводит в .out-1
 
 // не забывайте для авторизации отправлять apikey с указанным ключом.
-let xhr = new XMLHttpRequest()
 
 function f1() {
+    let xhr = new XMLHttpRequest()
     xhr.open('GET', URL + '/api/25/random/random-string');
     xhr.setRequestHeader('apikey', APIKEY);
     xhr.onload = function () {
@@ -34,6 +34,7 @@ document.querySelector('.b-1').addEventListener('click', f1);
 
 
 function f2() {
+    let xhr = new XMLHttpRequest()
     let numLen = document.querySelector('.i-2').value;
     xhr.open('GET', URL + '/api/25/random/random-string' + '/?length=' + numLen);
     xhr.setRequestHeader('apikey', APIKEY);
@@ -59,6 +60,7 @@ document.querySelector('.b-2').onclick = f2;
 // не забывайте для авторизации отправлять apikey с указанным ключом.
 
 function f3() {
+    let xhr = new XMLHttpRequest()
     xhr.open('POST', URL + '/api/25/sr/read');
     xhr.setRequestHeader('apikey', APIKEY);
     xhr.onload = function () {
@@ -88,6 +90,7 @@ let min = 1000;
 let max = 1150;
 
 function f4() {
+    let xhr = new XMLHttpRequest()
     xhr.open('GET', URL + '/api/25/random/random-number' + '?/min=' + min + '/&max=' + max)
     xhr.setRequestHeader('apikey', APIKEY);
     xhr.onload = function () {
@@ -110,6 +113,7 @@ document.querySelector('.b-4').onclick = f4;
 
 
 function f5() {
+    let xhr = new XMLHttpRequest()
     const data = new FormData();
     data.append('min', min);
     data.append('max', max)
@@ -139,6 +143,7 @@ document.querySelector('.b-5').onclick = f5;
 // выведите сообщение ответа сервера в out-6-response
 
 function f6() {
+    let xhr = new XMLHttpRequest()
     xhr.open('POST', URL + '/api/25/random/circle');
     xhr.setRequestHeader('apikey', APIKEY);
     xhr.onload = function () {
@@ -163,6 +168,8 @@ document.querySelector('.b-6').onclick = f6;
 let requestRace = 'gaal';
 
 function f7() {
+    let xhr = new XMLHttpRequest()
+
     document.querySelector('.out-7').innerHTML = ''
     xhr.open('GET', URL + '/api/25/sr/read');
     xhr.setRequestHeader('apikey', APIKEY);
@@ -189,6 +196,7 @@ document.querySelector('.b-7').onclick = f7;
 // выведите в .out-8 число сотрудников компании itemCount.
 
 function f8() {
+    let xhr = new XMLHttpRequest()
     xhr.open('POST', URL + '/api/25/employee/read');
     xhr.setRequestHeader('apikey', APIKEY);
     xhr.onload = function () {
@@ -211,6 +219,7 @@ document.querySelector('.b-8').onclick = f8;
 // выведите обозначение (designation) сотрудника в .out-9
 
 function f9() {
+    let xhr = new XMLHttpRequest()
     let num = document.querySelector('.i-9').value;
     xhr.open('POST', URL + '/api/25/employee/read/' + num);
     xhr.setRequestHeader('apikey', APIKEY);
@@ -235,6 +244,7 @@ document.querySelector('.b-9').onclick = f9;
 // не забывайте для авторизации отправлять apikey с указанным ключом.
 
 function f10() {
+    let xhr = new XMLHttpRequest()
     let num = document.querySelector('.i-10').value;
     xhr.open('GET', URL + '/api/25/employee/read/' + num)
     xhr.setRequestHeader('apikey', APIKEY);
@@ -260,6 +270,8 @@ document.querySelector('.b-10').onclick = f10;
 // не забывайте для авторизации отправлять apikey с указанным ключом.
 
 function f11() {
+    let xhr = new XMLHttpRequest()
+
     let num = document.querySelector('.i-11').value;
     xhr.open('POST', URL + '/api/25/random/generate-password');
     xhr.setRequestHeader('apikey', APIKEY);
@@ -289,6 +301,8 @@ document.querySelector('.b-11').onclick = f11;
 
 
 function f12() {
+    let xhr = new XMLHttpRequest()
+
     let num = document.querySelector('.i-12').value;
     let checkbox = document.querySelector('.ch-12');
     console.log(checkbox)
@@ -326,6 +340,8 @@ document.querySelector('.b-12').onclick = f12;
 // не забывайте для авторизации отправлять apikey с указанным ключом.
 
 function f13() {
+    let xhr = new XMLHttpRequest()
+
     let num = document.querySelector('.i-13').value;
     let checkbox1 = document.querySelector('.ch-131');
     let checkbox2 = document.querySelector('.ch-132');
@@ -365,6 +381,8 @@ document.querySelector('.b-13').onclick = f13;
 // выведите в .out-14 описание description расы (вывод через innerHTML)
 
 function f14() {
+    let xhr = new XMLHttpRequest()
+
     let human = document.querySelector('.s-14').value;
     console.log(human)
     xhr.open('GET', URL + `/api/25/sr/read/human/?${human}`);
@@ -393,6 +411,8 @@ document.querySelector('.b-14').onclick = f14;
 // выведите изображения рас в .out-15
 
 function f15() {
+    let xhr = new XMLHttpRequest()
+
     let out = document.querySelector('.out-15').innerHTML;
     out = '';
     xhr.open('POST', URL + '/api/25/sr/read')
@@ -422,6 +442,8 @@ document.querySelector('.b-15').onclick = f15;
 // выведите в .out-16 названия (title) миров через пробел. 
 
 function f16() {
+    let xhr = new XMLHttpRequest()
+
     xhr.open('GET', URL + '/api/25/gow/world');
     xhr.setRequestHeader('apikey', APIKEY);
     xhr.onload = function () {
@@ -448,6 +470,8 @@ document.querySelector('.b-16').onclick = f16;
 // выведите в .out-17 описание мира. 
 
 function f17() {
+    let xhr = new XMLHttpRequest()
+
     let worldName = document.querySelector('.s-17').value;
 
     xhr.open('GET', URL + `/api/25/gow/world/${worldName}`);
@@ -475,6 +499,8 @@ document.querySelector('.b-17').onclick = f17;
 // выполните очистку .out-18 в начале функции
 
 function f18() {
+    let xhr = new XMLHttpRequest()
+
     document.querySelector('.out-18').innerHTML = ''
     xhr.open('POST', URL + `/api/25/gow/rune`);
 

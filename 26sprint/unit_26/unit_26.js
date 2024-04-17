@@ -274,7 +274,20 @@ document.querySelector('.b-10').onclick = f10;
 // Выведите строку в .out-11
 
 async function f11() {
+    let requestHeaders = new Headers();
+    requestHeaders.append('apikey', APIKEY);
 
+    let inLen = +document.querySelector('.i-11').value;
+    console.log(inLen);
+
+    let fetchRequest = await fetch(URL + `/api/26/random/random-string?length=${inLen}`, {
+        method: 'GET',
+        headers: requestHeaders
+    })
+
+    console.log(fetchRequest)
+    let fetchResult = await fetchRequest.json();
+    document.querySelector('.out-11').innerHTML = fetchResult['random-string'];
 }
 
 document.querySelector('.b-11').onclick = f11;
@@ -291,6 +304,33 @@ document.querySelector('.b-11').onclick = f11;
 
 
 async function f12() {
+    let inLen = document.querySelector('.i-12').value;
+    console.log(inLen);
+    let checkbox = document.querySelector('.ch-12')
+    console.log(checkbox)
+
+    let requestHeaders = new Headers();
+    requestHeaders.append('apikey', APIKEY);
+
+    let queryForm = new FormData();
+    queryForm.append('length', inLen);
+    if (checkbox.checked === true) {
+        queryForm.append('symbols', 1)
+    } else {
+        queryForm.append('symbols', 0)
+    }
+    console.log(FormData)
+    let fetchRequest = await fetch(URL + `/api/26/random/generate-password`, {
+        method: 'POST',
+        headers: requestHeaders,
+        body: queryForm,
+
+    })
+
+    console.log(fetchRequest)
+    let fetchResult = await fetchRequest.json();
+    console.log()
+    document.querySelector('.out-12').innerHTML = fetchResult.password;
 
 }
 
@@ -310,6 +350,39 @@ document.querySelector('.b-12').onclick = f12;
 // не забывайте для авторизации отправлять apikey с указанным ключом.
 
 async function f13() {
+    let inLen = document.querySelector('.i-13').value;
+    console.log(inLen);
+    let ch131 = document.querySelector('.ch-131')
+    let ch132 = document.querySelector('.ch-132')
+
+    let requestHeaders = new Headers();
+    requestHeaders.append('apikey', APIKEY);
+
+    let queryForm = new FormData();
+    queryForm.append('length', inLen);
+    if (ch131.checked === true) {
+        queryForm.append('symbols', 1)
+    } else {
+        queryForm.append('symbols', 0)
+    }
+
+    if (ch132.checked === true) {
+        queryForm.append('uppercase', 1)
+    } else {
+        queryForm.append('uppercase', 0)
+    }
+    console.log(FormData)
+    let fetchRequest = await fetch(URL + `/api/26/random/generate-password`, {
+        method: 'POST',
+        headers: requestHeaders,
+        body: queryForm,
+
+    })
+
+    console.log(fetchRequest)
+    let fetchResult = await fetchRequest.json();
+    console.log()
+    document.querySelector('.out-13').innerHTML = fetchResult.password;
 
 }
 
@@ -324,7 +397,20 @@ document.querySelector('.b-13').onclick = f13;
 // выведите в .out-14 title миров через пробел. 
 
 async function f14() {
-
+    let requestHeaders = new Headers();
+    requestHeaders.append('apikey', APIKEY);
+    let fetchRequest = await fetch(URL + '/api/26/gow/world', {
+        method: 'GET',
+        headers: requestHeaders
+    });
+    let fetchResult = await fetchRequest.json();
+    console.log(fetchResult.worlds)
+    let out = ' '
+    for (let item of fetchResult.worlds) {
+        out += item.title + ' '
+        console.log(item)
+    }
+    document.querySelector('.out-14').innerHTML = out
 }
 
 document.querySelector('.b-14').onclick = f14;
@@ -338,7 +424,19 @@ document.querySelector('.b-14').onclick = f14;
 // выведите описание мира (description) в out-15
 
 async function f15() {
+    let requestHeaders = new Headers();
+    requestHeaders.append('apikey', APIKEY)
 
+    let elemS = document.querySelector('.s-15').value;
+
+    let fetchRequest = await fetch(URL + `/api/26/gow/world/${elemS}`, {
+        method: 'GET',
+        headers: requestHeaders
+    })
+
+    let fetchResult = await fetchRequest.json();
+
+    document.querySelector('.out-15').innerHTML = fetchResult.world.description;
 }
 
 
@@ -353,6 +451,22 @@ document.querySelector('.b-15').onclick = f15;
 // выведите в .out-16 руну данного мира. Как изображение (createElement). Очищайте out-16 в начале функции.
 
 async function f16() {
+    document.querySelector('.out-16').innerHTML = ''
+    let requestHeaders = new Headers();
+    requestHeaders.append('apikey', APIKEY)
+
+    let elemS = document.querySelector('.s-16').value;
+
+    let fetchRequest = await fetch(URL + `/api/26/gow/governor/${elemS}`, {
+        method: 'GET',
+        headers: requestHeaders
+    })
+
+    let fetchResult = await fetchRequest.json();
+    console.log(fetchResult.world.rune)
+    let img = document.createElement('img');
+    img.setAttribute('src', URL + fetchResult.world.rune)
+    document.querySelector('.out-16').append(img)
 
 }
 
@@ -368,6 +482,18 @@ document.querySelector('.b-16').onclick = f16;
 // выведите в .out-17 время в формате час:минуты
 
 async function f17() {
+    let requestHeaders = new Headers();
+    requestHeaders.append('apikey', APIKEY)
+
+    let fetchRequest = await fetch(URL + `/api/26/get-time`, {
+        method: 'POST',
+        headers: requestHeaders
+    })
+
+    let fetchResult = await fetchRequest.json();
+    console.log()
+    console.log(fetchResult.time)
+    document.querySelector('.out-17').innerHTML = fetchResult.time.h + ':' + fetchResult.time.m
 
 }
 
@@ -384,6 +510,25 @@ document.querySelector('.b-17').onclick = f17;
 // выполните очистку .out-18 в начале функции
 
 async function f18() {
+    document.querySelector('.out-18').innerHTML = ''
+    let requestHeaders = new Headers();
+    requestHeaders.append('apikey', APIKEY)
+
+    let fetchRequest = await fetch(URL + `/api/26/gow/rune`, {
+        method: 'POST',
+        headers: requestHeaders
+    })
+
+    let fetchResult = await fetchRequest.json();
+    console.log(fetchResult.rune);
+    let imgObj = fetchResult.rune
+    for (let key in imgObj) {
+        console.log(imgObj[key])
+        let img = document.createElement('img');
+        img.setAttribute('src', URL + imgObj[key])
+        img.setAttribute('alt', key)
+        document.querySelector('.out-18').append(img)
+    }
 
 }
 

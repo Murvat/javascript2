@@ -36,7 +36,12 @@ function rejectError(err) {
 
 function resolveF1(data) {
     console.log(data);
-    // тут допишите необходимый вывод 
+    if (data['random-number'] > 50) {
+        document.querySelector('.out-1').innerHTML = true
+    } else {
+        document.querySelector('.out-1').innerHTML = false;
+
+    }
 }
 
 document.querySelector('.b-1').addEventListener('click', f1);
@@ -51,11 +56,25 @@ document.querySelector('.b-1').addEventListener('click', f1);
 
 
 function f2() {
+    const requestHeaders = new Headers();
+    requestHeaders.append("apikey", APIKEY);
 
+    const p = new Promise((resolve, reject) => {
+        fetch(URL + '/api/27/random/random-string', {
+            headers: requestHeaders
+        })
+            .then(response => {
+                if (response.ok) resolve(response.json());
+                else reject(response)
+            })
+            .catch(error => reject(error));
+    })
+    p.then(resolveF2)
 }
 
 function resolveF2(data) {
-    console.log(data);
+    console.log(data)
+    document.querySelector('.out-2').innerHTML = data['random-string'];
 }
 
 document.querySelector('.b-2').onclick = f2;
@@ -90,7 +109,7 @@ function f3() {
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            // допишите вывод
+            document.querySelector('.out-3').innerHTML = data.result.email
         });
 }
 
@@ -108,6 +127,23 @@ document.querySelector('.b-3').onclick = f3;
 let employeeEmail;
 
 function f4() {
+    const requestHeaders = new Headers();
+    requestHeaders.append("apikey", APIKEY);
+    fetch(URL + '/api/27/employee/random-email', {
+        headers: requestHeaders
+    })
+        .then(response => response.json())
+        .then(data => {
+            employeeEmail = data.email
+            return fetch(URL + `/api/27/employee/email?email=${employeeEmail}`, {
+                headers: requestHeaders
+            }).then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    document.querySelector('.out-4').innerHTML = data.result.name
+                })
+
+        })
 
 }
 
@@ -124,6 +160,26 @@ document.querySelector('.b-4').onclick = f4;
 let randomWorld;
 
 function f5() {
+    const requestHeaders = new Headers();
+    requestHeaders.append("apikey", APIKEY);
+
+    fetch(URL + '/api/27/gow/random-world', {
+        headers: requestHeaders,
+        method: "POST"
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            randomWorld = data.world
+            return fetch(URL + `/api/27/gow/world/${randomWorld}`, {
+                headers: requestHeaders
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    document.querySelector('.out-5').innerHTML = data.world.governor
+                })
+        })
 
 }
 
@@ -179,8 +235,8 @@ function f6() {
     });
 
     Promise.all([promise_1, promise_2]).then(data => {
-        // выведите в консоль и посмотрите что лежит в data
-        // выведите сумму полученных случайных чисел
+        console.log(data)
+        document.querySelector('.out-6').innerHTML = data[0]['random-number'] + data[1]['random-number']
     })
 }
 
@@ -198,6 +254,31 @@ document.querySelector('.b-6').onclick = f6;
 
 
 function f7() {
+    const requestHeaders = new Headers();
+    requestHeaders.append("apikey", APIKEY);
+
+
+    const p1 = new Promise((resolve) => {
+        fetch(URL + '/api/27/random/random-number', {
+            headers: requestHeaders
+        })
+            .then(response => response.json())
+            .then(data => resolve(data));
+    });
+
+    const p2 = new Promise((resolve) => {
+        fetch(URL + '/api/27/random/random-string', {
+            headers: requestHeaders
+        })
+            .then(response => response.json())
+            .then(data => resolve(data));
+    });
+
+    Promise.all([p1, p2]).then(data => {
+        console.log(data);
+        document.querySelector('.out-71').innerHTML = data[0]['random-number'];
+        document.querySelector('.out-72').innerHTML = data[1]['random-string'];
+    });
 
 }
 
@@ -214,11 +295,43 @@ document.querySelector('.b-7').onclick = f7;
 // Затем результаты получаются через PromiseAll и в .out-8 выводится image полученных рас. Image создаются через createElement, в начале функции .out-8 очищается.
 // Промисы создаются и разрешаются в том порядке что описаны. 
 
-const out8 = document.querySelector('.out-8');
-
+let out8 = document.querySelector('.out-8');
 
 function f8() {
+    out8.innerHTML = ''
+    const requestHeaders = new Headers();
+    requestHeaders.append("apikey", APIKEY);
 
+    let value1 = document.querySelector('.s-81').value;
+    let value2 = document.querySelector('.s-82').value
+
+    const p1 = new Promise((resolve) => {
+        fetch(URL + `/api/27/sr/read/${value1}`, {
+            headers: requestHeaders
+        }).then(
+            response => response.json()
+        ).then(data => resolve(data))
+    })
+    const p2 = new Promise((resolve) => {
+        fetch(URL + `/api/27/sr/read?race=${value2}`, {
+            headers: requestHeaders
+        }).then(
+            response => response.json()
+        ).then(data => resolve(data))
+    })
+
+    Promise.all([p1, p2]).then((data) => {
+        console.log(data)
+        let img1 = document.createElement('img');
+        img1.setAttribute('src', `${URL}${data[0].result.image}`)
+        console.log(img1)
+        let img2 = document.createElement('img');
+        img2.setAttribute('src', `${URL}${data[1].result.image}`)
+
+        out8.appendChild(img1)
+        out8.appendChild(img2)
+    }
+    )
 }
 
 document.querySelector('.b-8').onclick = f8;

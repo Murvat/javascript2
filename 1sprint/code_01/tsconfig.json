@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "target": "es2022",
+        "removeComments": false,
+        "outDir": "javascript",
+        "sourceMap": true,
+        "noEmitOnError": true,
+        "alwaysStrict": true,
+        "allowUnreachableCode": false,
+        "moduleResolution": "node",
+        "baseUrl": ".", // Set the baseUrl to the root of your project
+        "paths": {
+            "undici-types": [
+                "node_modules/undici-types"
+            ],
+            "csstype": [
+                "node_modules/csstype"
+            ]
+        }
+    }
+}

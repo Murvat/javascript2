@@ -1,3 +1,4 @@
+export{}
 let a1_res: number[] = [],
     a2_res: number[] = [],
     a3_res: number[] = [],
